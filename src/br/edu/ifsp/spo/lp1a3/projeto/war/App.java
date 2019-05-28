@@ -2,41 +2,13 @@ package br.edu.ifsp.spo.lp1a3.projeto.war;
 
 import br.edu.ifsp.spo.lp1a3.projeto.war.classes.*;
 
+@SuppressWarnings("unused")
 public class App {
 	
 //	public void iniciarPartida() {
 //		Map<Integer, Pais> mapa = new HashMap<Integer, Pais>();
 //		mapa.put(1, new Pais());
 //	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -49,7 +21,7 @@ public class App {
 //		Dado dadoTeste = new Dado(6);
 
 		//dice compare
-		Partida partida = new Partida(4, 6);
+		/*Partida partida = new Partida(4, 6);
 		partida.distribuirTerritorio(4);
 		Tabuleiro tabuleiro = new Tabuleiro(partida);
 		System.out.println(tabuleiro.compararRolagem());
@@ -67,5 +39,6 @@ public class App {
 		System.out.println("ganhou " + venceu);
 		System.out.println("perder " + perdeu);
 		System.out.println("empatou" + empatou);
+		*/
 	}
 }

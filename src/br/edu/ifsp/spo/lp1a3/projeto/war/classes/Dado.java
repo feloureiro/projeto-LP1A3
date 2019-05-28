@@ -4,26 +4,15 @@ import java.util.Random;
 
 public class Dado {
 
-	private int numLados;
-
-	//Construtor
-	public Dado(int lados) {
-		setNumLados(lados);
-	}
-	
-	//Getters e Setters
-	public int getNumLados() {
-		return this.numLados;
-	}
-
-	public void setNumLados(int numLados) {
-		this.numLados = numLados;
-	}
-	
-	//Métodos
+	static int diceSet = Partida.diceset;
+	//MÃ©todos	
 	public int rolarDado() {
 		int valorDado = new Random().nextInt(getNumLados());
 		return valorDado + 1;
 	}
-	
+
+	//Getters e Setters
+	public int getNumLados() {
+		return Dado.diceSet;	
+	}
 }

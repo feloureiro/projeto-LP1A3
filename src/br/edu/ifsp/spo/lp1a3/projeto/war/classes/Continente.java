@@ -1,5 +1,7 @@
 package br.edu.ifsp.spo.lp1a3.projeto.war.classes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import br.edu.ifsp.spo.lp1a3.projeto.war.classes.Pais;
@@ -8,29 +10,42 @@ import br.edu.ifsp.spo.lp1a3.projeto.war.classes.Pais;
 public class Continente {
 	private String nome;
 	private int[] paises;
+	private ArrayList<Pais> paisesArray = new ArrayList<>();
 	
-	public Continente(String nome, int [] paises) {
+	public Continente(String nome, int [] paisesRef) {
 		setNome(nome);
-		setPaises(paises);
+		setPaisesRef(paisesRef);
+		setPaisesArray(paisesRef);
 	}
 	
 	
 	
-	//GETTERS; SETTERS; OVERRIDES
+//GETTERS E SETTERS
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Pais getPaises() {
-		for(int pais : paises){
+	
+	public void setPaisesRef(int [] paisesRef){
+		this.paises = paisesRef; 
 	}
+	
+	public int[] getPaises() {
+		return this.paises;
 	}
-	public void setPaises(int[] paises) {
-		this.paises = paises;
+	
+	public void setPaisesArray(int[] paises) {
+		for(int i = 0; i < this.paises.length; i++){
+			paisesArray.add(GameConf.mapa.get(paises[i]));
+		}
 	}
-
+	public ArrayList<Pais> getPaisesArray() {
+		return paisesArray;
+	}
+	
+//OVERRIDES
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -39,7 +54,10 @@ public class Continente {
 		result = prime * result + ((paises == null) ? 0 : paises.hashCode());
 		return result;
 	}
-
+	@Override
+	public String toString() {
+		return "Continente: " + getNome() + Arrays.toString(paises);
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

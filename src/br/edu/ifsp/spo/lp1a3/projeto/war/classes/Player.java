@@ -1,17 +1,11 @@
 package br.edu.ifsp.spo.lp1a3.projeto.war.classes;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Player {
-	//Deve suportar n jogadores
-	//TODO: Verificar mais métodos relacionados a classe
-	//TODO: Criar os testes de Player em PlayerTest.java
 	
 	private String namePlayer;
 	private boolean statusPlayer;
-	
-	//TODO: Talvez não seja a melhor abordagem para cor, já que está estático. Verificar se há algo melhor
 	private String cor;
 	private int exercitosLivres;
 	private ArrayList<Pais> paisesDominados = new ArrayList<>();
@@ -21,6 +15,39 @@ public class Player {
 		setStatusPlayer(true);
 	}
 
+	public void jogar(){
+		fortalecerTerritorios();
+		System.out.println("Atacar");
+		System.out.println("");
+	}
+	
+	public void adicionarExercito(Pais pais, int qtdExercito) {
+		if(getNamePlayer().equals(pais.getPlayer().namePlayer)) {
+			pais.setQtdExercito(pais.getQtdExercito() + qtdExercito);
+			System.out.println(qtdExercito + " adicionados ao pa�s " + pais.getNome());
+		} else {
+			System.out.println("Voc� n�o pode adicionar ex�rcito em um pa�s de outro player.");
+		}		
+	}
+	
+
+	//TODO: M�todo n�o est� totalmente implementado. Interfer�ncia de interface gr�fica
+	public void fortalecerTerritorios() {
+		int qtdExercitos;
+		System.out.println("Voc� possui " + getExercitosLivres() + "para adicionar ao jogo.");
+		while(getExercitosLivres() != 0) {
+			//Seleciona o pa�s que o player quer adicionar e a qtd
+			Pais pais = null;
+			qtdExercitos = 2;
+			if(qtdExercitos > getExercitosLivres()) {
+				System.out.println("Quantidade de ex�rcitos inv�lida.");
+			} else {
+				adicionarExercito(pais, qtdExercitos);
+			}
+		}
+	}
+	
+	
 	
 	//Getters e Setters
 	public String getCor() {
@@ -52,6 +79,7 @@ public class Player {
 	}
 	public void setPaisesDominados(Pais paisDominado) {
 		this.paisesDominados.add(paisDominado);
+		paisDominado.setPlayer(this);
 
 	}
 	public ArrayList<Pais> getPaisesDominados() {
@@ -71,8 +99,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player: " + namePlayer + ", Exercitos Livres: " + exercitosLivres + ", Paises Dominados: "
-				+ paisesDominados;
+		return "Player: " + namePlayer + ", Exercitos Livres: " + exercitosLivres;
 	}
 
 	@Override

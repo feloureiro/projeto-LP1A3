@@ -1,5 +1,8 @@
 package br.edu.ifsp.spo.lp1a3.projeto.war.classes;
+import br.edu.ifsp.spo.lp1a3.projeto.war.App;
 import br.edu.ifsp.spo.lp1a3.projeto.war.classes.Partida;
+import br.edu.ifsp.spo.lp1a3.projeto.war.controllers.PlayerController;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -11,27 +14,7 @@ public class Tabuleiro {
 	}
 	//Instancia uma partida
 	//Instancia e retorna uma partida
-	public static Partida iniciarPartida() {
-		ArrayList<Player> players = new ArrayList<>();
-		int qtdP = 0;
-		int diceSet = 0;
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
-			
-		System.out.println("Digite o número de lados do dado: ");
-		diceSet = input.nextInt();
-		input.nextLine();
-		
-		System.out.println("Digite a quantidade de players:");
-		qtdP = input.nextInt();
-		input.nextLine();
-			
-		for(int i = 0; i < qtdP; i++) {
-			System.out.println("Insira seu Nickname: ");
-			String nome = input.nextLine();
-			players.add(new Player(nome));
-		}
-			
+	public static Partida iniciarPartida(ArrayList<Player> players, int diceSet) {		
 		players = Tabuleiro.definirOrdemJogada(players, diceSet);
 		distribuirTerritorio(players);
 		return (new Partida(players, diceSet));
@@ -44,7 +27,7 @@ public class Tabuleiro {
 			int qtdPaisesDominados = player.getPaisesDominados().size();
 			int resultDivisao = qtdPaisesDominados / 2;
 			
-			//No caso do player possuir um territ�rio
+			//No caso do player possuir um território
 			if(resultDivisao == 0) {
 				resultDivisao = 1;
 			}	
@@ -105,19 +88,14 @@ public class Tabuleiro {
 				}
 			}
 	}
-	
-	
-	public static String definirCorPlayer() {
-		
-		return null;
-	
-	}
+
 
 	public static int compareRolagemDados(int diceSet) {
     	Dado dado = new Dado(diceSet);
     	int result1 = dado.rolarDado();
     	int result2 = dado.rolarDado();
-    	System.out.println("Dado 1: " + result1 + " Dado 2: " + result2);
+    	//TODO IMPLEMENTAR SISTEMAS DE LOG PARA MOSTRAR ROLAGEM DE DADOS NA UI
+    	//	System.out.println("Dado 1: " + result1 + " Dado 2: " + result2);
     	if(result1 > result2) {
     		return 1;
     	} else if(result1 == result2) {
@@ -129,21 +107,24 @@ public class Tabuleiro {
 	//TODO: Implementar o método
 	public static void validarVencedor(boolean resultFinal) {
 		if(resultFinal) {
+			PlayerController pc = new PlayerController();
+			pc.mensagem("Vitória. Parabéns! Um exército seu será alocado no país conquistado.");
 			System.out.println("Vitória. Parabéns! Um exército seu será alocado no país conquistado.");
 			
 		} else {
-			System.out.println("Derrota. O oponente defendeu o território.");
+			PlayerController pc = new PlayerController();
+			pc.mensagem("Derrota. O oponente defendeu o território.");
 		}
 	}
 	
 	//Desabilitar um player quando ele perde todos os territ�rios
 	public static void gameOver(Player player) {
-		if(player.getPaisesDominados().size() > 0) {
+		if(player.getPaisesDominados().size() == 0) {
 			System.out.println("Game Over para " + player.getNamePlayer());
 			player.setStatusPlayer(false);
-			//return false;
 		}
-		//return true;
+		if(App.partida.getPlayers().size() == 1)
+			System.out.println("Parabéns " +App.partida.getPlayers().get(0).getNamePlayer() +", Você Ganhou o game!");
 	}
 	
 	

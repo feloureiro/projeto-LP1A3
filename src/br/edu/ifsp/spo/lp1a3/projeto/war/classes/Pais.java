@@ -42,6 +42,8 @@ public class Pais {
 				//Valida se o atacado ainda possui exÃ©rcito
 				if(atacado.getQtdExercito() == 0) {
 					i = qtdExercito;
+					atacado.setPlayer(this.getPlayer());
+					atacado.setQtdExercito(1);
 					resultadoFinal = true;
 					Tabuleiro.gameOver(atacado.getPlayer());
 				}
@@ -49,6 +51,7 @@ public class Pais {
 			
 			Tabuleiro.validarVencedor(resultadoFinal);
 		}
+			
 	}
 	
 	public String movimentarExercito(Pais paisFuturo, int qtdExercito) {
@@ -62,7 +65,7 @@ public class Pais {
 	
 	
 	
-	//VALIDAÇÕES
+	//VALIDAï¿½ï¿½ES
 	public boolean validarConexao(Pais atacado) {
 		for(Pais pais: this.getPaisesConexoes()) {
 			if(pais.equals(atacado)) {
@@ -78,7 +81,7 @@ public class Pais {
 		if(qtdExercito > 0 && qtdExercito < 4) {
 			return true;
 		}
-		System.out.println("Quantidade inválida de exércitos.");
+		System.out.println("Quantidade invï¿½lida de exï¿½rcitos.");
 		return false;
 	}
 		
@@ -89,6 +92,7 @@ public class Pais {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+		setQtdExercito(1);
 	}
 	public boolean isStatus() {
 		return status;
@@ -98,11 +102,9 @@ public class Pais {
 	}
 	public void setPlayer(Player p){
 		this.player = p;
+		setStatus(true);
 	}
 	public int getQtdExercito() {
-		if(status) {
-			return qtdExercito + 1;
-		}	else
 			return qtdExercito;
 	}
 	public void setQtdExercito(int qtdExercito) {
@@ -136,7 +138,7 @@ public class Pais {
 //OVERRIDES
 	@Override
 	public String toString() {
-		return "Pais " + this.getNome() + " Dominador: " + this.getPlayer().getNamePlayer();	
+		return this.getNome() + ", Exercitos: " + getQtdExercito();	
 	}
 	
 	@Override

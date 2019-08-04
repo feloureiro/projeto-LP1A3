@@ -1,26 +1,26 @@
 package br.edu.ifsp.spo.lp1a3.projeto.war.classes;
 
-import br.edu.ifsp.spo.lp1a3.projeto.war.classes.Rodada;
 import java.util.ArrayList;
 
 public class Partida {
 	public int playersQtd;
 	private Dado dice;
-	private int rodadaNum; 
+	private int rodadaNum = 0;
+	private Rodada rodada = null;
+
+
 	private ArrayList<Player> players = new ArrayList<>();
 	
 	public Partida(ArrayList<Player> players, int diceset) {
 		setPlayers(players);
 		this.dice = new Dado(diceset);
 		this.rodadaNum = 0;
-		iniciarRodadas();
 	}
 	
 	//TODO Implementar rodadas
 	public void iniciarRodadas(){
-		Rodada rodada = new Rodada(players, ++rodadaNum);
+		this.rodada = new Rodada(players, ++rodadaNum);
 		rodada.iniciarRodada();
-	
 	}
 	
 	
@@ -46,6 +46,9 @@ public class Partida {
 
 	public void setDice(Dado dice) {
 		this.dice = dice;
+	}
+	public Rodada getRodada() {
+		return rodada;
 	}
 
 //OVERRIDES
